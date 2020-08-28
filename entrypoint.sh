@@ -11,7 +11,7 @@ export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 DOWNLOAD_URL="https://papermc.io/api/v1/${SERVER_TYPE}/${MINECRAFT_VERSION}/latest/download"
 DOWNLOAD_CURL="curl -s -o ${SERVER_JARFILE} ${DOWNLOAD_URL} > /dev/null"
 echo "Download Jar file from ${DOWNLOAD_URL}"
-echo ${DOWNLOAD_CURL}
+echo ":/home/container$ ${DOWNLOAD_CURL}"
 eval ${DOWNLOAD_CURL}
 
 # Replace Startup Variables
