@@ -7,12 +7,15 @@ java -version
 # Make internal Docker IP address available to processes.
 export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
-# Downloads the custom jar - turn off autoupdate
-# DOWNLOAD_URL="https://papermc.io/api/v1/${SERVER_TYPE}/${MINECRAFT_VERSION}/latest/download"
-# DOWNLOAD_CURL="curl -s -o ${SERVER_JARFILE} ${DOWNLOAD_URL} > /dev/null"
-# echo "Download Jar file from ${DOWNLOAD_URL}"
-# echo ":/home/container$ ${DOWNLOAD_CURL}"
-# eval ${DOWNLOAD_CURL}
+# Downloads the custom jar - NOT FOR PAPER
+if [[ "$SERVER_TYPE" != "paper" ]]
+then
+    DOWNLOAD_URL="https://papermc.io/api/v1/${SERVER_TYPE}/${MINECRAFT_VERSION}/latest/download"
+    DOWNLOAD_CURL="curl -s -o ${SERVER_JARFILE} ${DOWNLOAD_URL} > /dev/null"
+    echo "Download Jar file from ${DOWNLOAD_URL}"
+    echo ":/home/container$ ${DOWNLOAD_CURL}"
+    eval ${DOWNLOAD_CURL}
+fi
 
 # Replace Startup Variables
 MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
